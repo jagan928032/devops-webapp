@@ -18,3 +18,10 @@ jobs:
 
       - name: Simulate Build
         run: echo "Build successful!"
+
+      - name: Send Slack Notification
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"✅ Build Successful for devops-webapp!"}' \
+          ${{ secrets.SLACK_WEBHOOK }}
